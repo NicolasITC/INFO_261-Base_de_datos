@@ -1,0 +1,31 @@
+Clase 26-9-18
+
+Código introductorio mysql 
+
+MySQL -u root -p
+
+show databases;
+
+source BS; (archivo ej: sakila.data.sql)
+
+
+EJERCICIO 3
+
+a) SELECT TITLE FROM film;
+
+b) SELECT DISTINCT release_year FROM film;
+
+c) SELECT title, rental_duration FROM film WHERE rental_duration >= 4 LIMIT 10;    limit-->Limite de datos que se mostraran
+    SELECT title, rental_duration FROM film WHERE rental_duration >= 4;
+
+d) SELECT customer_id, rental_id, amount, payment_date FROM payment WHERE payment_date BETWEEN "2005-07-01" AND "2005-08-01" LIMIT 10;
+
+EJERCICIO 4
+
+a) SELECT count(*) FROM customer;
+
+b) SELECT customer_id, count(*) FROM rental GROUP by customer_id;
+	
+TODO-> SELECT staff_id, sum(amount) as total FROM payment WHERE payment_date BETWEEN '2005-08-20' AND '2005-08-25' GROUP BY staff_id HAVING total>5000 ORDER BY total desc limit 1 ;
+
+DESCIBE payment; --> muestra tabla

@@ -1,0 +1,51 @@
+Notebook 2 Nicolás Treimún 
+
+______________________________________________________________________________________________________________________________________________________________________________________________
+
+EJERCICIO 2
+- source sakila-schema.sql
+- source sakila-data.sql
+
+
+EJERCICIO 3
+
+a) SELECT TITLE FROM film;
+
+b) SELECT DISTINCT release_year FROM film;
+
+c) SELECT title, rental_duration FROM film WHERE rental_duration >= 4 LIMIT 10;    
+    SELECT title, rental_duration FROM film WHERE rental_duration >= 4;
+
+d) SELECT customer_id, rental_id, amount, payment_date FROM payment WHERE payment_date BETWEEN "2005-07-01" AND "2005-08-01" LIMIT 10;
+
+EJERCICIO 4
+
+1) SELECT count(*) FROM customer;
+
+2) SELECT customer_id, count(*) FROM rental GROUP by customer_id;
+
+3) SELECT MAX(total) FROM (SELECT customer_id,count(*) as total FROM rental GROUP BY customer_id) as t1; Asigna el máximo valor entre el número de arriendo de cada customer y lo asigna en la variable total, almacenado en la tabla t1
+
+4) Una subconsulta es una consulta dentro de otra consulta, la cual se encuentra incrustada dentro de la clausula de WHERE
+
+5) SELECT staff_id, SUM(amount) FROM payment GROUP BY staff_id;
+
+6) SELECT staff_id, SUM(amount) FROM payment WHERE payment_date BETWEEN "2005-08-23 00:00:00" AND "2005-08-23 23:59:59" GROUP BY staff_id ASC LIMIT 1;
+ 
+EJERCICIO 5
+
+1) SELECT title, name FROM film INNER JOIN language ON film.language_id = language.language_id;
+
+2) SELECT first_name, last_name FROM customer
+    INNER JOIN rental ON customer.customer_id = rental.customer_id
+    INNER JOIN inventory ON rental.inventory_id = inventory.inventory_id
+    INNER JOIN film ON inventory.film_id = film.film_id
+    WHERE title = "CHICAGO NORTH";
+
+3) SELECT customer.first_name,customer.last_name,city.city FROM city INNER JOIN address ON city.city_id=address.city_id INNER JOIN customer ON customer.address_id=address.address_id LIMIT 10;
+
+4) SELECT count(rental.rental_id),film.title FROM rental INNER JOIN inventory on rental.inventory_id=inventory.inventory_id INNER JOIN film on inventory.film_id=film.film_id GROUP BY film.title LIMIT 10;
+
+5) SELECT film.title, SUM(payment.amount) FROM film INNER JOIN inventory ON film.film_id=inventory.film_id INNER JOIN rental ON inventory.inventory_id=rental.inventory_id INNER JOIN payment ON rental.rental_id=payment.rental_id GROUP BY film.title ORDER BY SUM(payment.amount) DESC LIMIT 1;
+
+6) SELECT customer.first_name, customer.last_name, sum(payment.amount) FROM customer INNER JOIN payment ON payment.customer_id=customer.customer_id WHERE payment.amount > 10 GROUP BY customer.customer_id 	   LIMIT  10;
